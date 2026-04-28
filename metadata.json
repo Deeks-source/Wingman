@@ -1,0 +1,6 @@
+{
+  "name": "The Wingman: Atelier of Heart",
+  "description": "A sophisticated dating coach and psychological profiler that visualizes your inner self and ideal love through classical art and deep conversation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["AI Chat", "Image Generation"]
+}

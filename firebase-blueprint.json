@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Represents a single message in the chat session.",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["user", "model", "system"] },
+        "text": { "type": "string" },
+        "timestamp": { "type": "integer" }
+      },
+      "required": ["role", "text", "timestamp"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "The extracted psychological profile of the user.",
+      "type": "object",
+      "properties": {
+        "psych_summary": { "type": "string" },
+        "hard_gates": { "type": "object" },
+        "lifestyle": { "type": "object" },
+        "psych_profile": { "type": "object" },
+        "shared_glue": { "type": "object" },
+        "deal_breakers": { "type": "array", "items": { "type": "string" } },
+        "green_flags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "BasicProfile": {
+      "title": "BasicProfile",
+      "description": "The basic user details.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "age": { "type": "string" },
+        "gender": { "type": "string" },
+        "pronouns": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "sessions/{sessionId}": {
+      "schema": "object",
+      "description": "Chat session metadata"
+    },
+    "sessions/{sessionId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Messages within a specific session"
+    },
+    "users/{userId}/profiles/{profileType}": {
+      "schema": "object",
+      "description": "The current user profile or basic profile"
+    }
+  }
+}

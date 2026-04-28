@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Sessions are publicly readable/writable for demo simplicity, 
+    // but in a real app would be keyed by auth UID.
+    match /sessions/{sessionId} {
+      allow read, write: if true;
+      
+      match /messages/{messageId} {
+        allow read, write: if true;
+      }
+    }
+
+    match /users/{userId}/profiles/{profileType} {
+      allow read, write: if true;
+    }
+  }
+}
