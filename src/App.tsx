@@ -61,7 +61,12 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!db || !isAuthLoaded) return;
+    // Do not load or subscribe to any session data when no user is signed in.
+    if (!db || !isAuthLoaded || !currentUser) {
+      setMessages([]);
+      setSummary('');
+      return;
+    }
     // Listen for messages from Firestore
     const q = query(
       collection(db, 'sessions', SESSION_ID, 'messages'),
@@ -291,17 +296,7 @@ export default function App() {
                 <span className="hidden md:inline">Archive Soul</span>
               </button>
 
-              {currentUser && (
-                <button 
-                  onClick={migrateGuestData}
-                  disabled={isLoading}
-                  className="flex px-3 md:px-4 py-2.5 md:py-3 border border-[#1A1A1A]/10 hover:bg-[#1A1A1A]/5 transition-all font-black text-[9px] md:text-[10px] uppercase tracking-[0.2em] items-center gap-2 md:gap-3 rounded-sm disabled:opacity-20 shadow-sm active:scale-95 shrink-0 text-[#1A1A1A]/50 hover:text-[#1A1A1A]"
-                  title="Import your chats from before you signed in"
-                >
-                  <span className="md:hidden">Import</span>
-                  <span className="hidden md:inline">Import Guest History</span>
-                </button>
-              )}
+              {/* Import Guest History button removed */}
             </div>
           </div>
         </header>
